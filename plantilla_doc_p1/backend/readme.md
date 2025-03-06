@@ -12,6 +12,12 @@ nest new <nombre-proyecto>
 # crear recursos
 nest g resource <nombre-recurso> --no-spec
 
+# delete prettier
+yarn remove prettier eslint-plugin-prettier eslint-config-prettier
+
+# instalar oracle-db
+yarn add oracledb
+
 # instalar validadores
 yarn add class-validator class-transformer
 

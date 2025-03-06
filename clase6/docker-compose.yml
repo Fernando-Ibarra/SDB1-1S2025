@@ -1,0 +1,37 @@
+services:
+  # Oracle Database Lite
+  db:
+    image: container-registry.oracle.com/database/free:latest-lite
+    container_name: oracle-db
+    ports:
+      - "1522:1521"
+    environment:
+      - ORACLE_PWD=Clase6
+      - ORACLE_CHARACTERSET=AL32UTF8
+      - ENABLE_ARCHIVELOG=true
+      - ENABLE_FORCE_LOGGING=true
+      - TZ=America/Guatemala
+    volumes:
+      - ./oracle-db:/opt/oracle/oradata
+  
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend-container
+    restart: always
+    volumes:
+      - ./backend/src:/app/src
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - PORT=3000
+    command: npm run start:dev
+    
+  
+volumes:
+  oracle-db:
+    external: true
+  
